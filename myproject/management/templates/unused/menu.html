@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <span class="container">
+        <span class="dish-list">
+            {% for i in data%}
+         <span class="dish-card">
+     
+                <img src='{{i.food_image.url}}' alt="{{i.food_image}}">
+                <h3>{{i.food_name}}</h3>
+                <p>{{i.food_category}}</p>
+                <h3>Rs. {{i.food_price}}</h3>
+                <h3>{{i.food_type}}</h3>
+
+                {% comment %} <button>Order Dish</button> {% endcomment %}
+            
+            </span>
+            {% endfor %}
+        </span>
+    </span>
+    {% comment %} <ul>
+        {% for i in data %}
+            <li>
+                <p>Pizza Name : {{i.food_name}}</p>
+                <p>Pizza description : {{i.food_desc}}</p>
+                <p>Pizza category : {{i.food_category}}</p>
+                <p>Pizza Price : {{i.food_price}}</p>
+                <img src="{{i.food_image.url}}" alt="" srcset=""/>
+            </li>
+        {% endfor %}
+    </ul> {% endcomment %}
+</body>
+</html>

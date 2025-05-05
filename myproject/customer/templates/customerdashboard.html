@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Customer DashBoard{% endblock title %}
+
+{% block customer %}
+<li class="nav-item">
+    <a class="nav-link" href='{% url "order_food" %}'>Order Food</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href='{% url "view_cart" %}'>View Cart</a>
+</li>
+{% endblock customer %}
+
+
+{% block dashboard %}
+<div class="about_bt"><a href='{% url "order_food" %}'>Order Food</a></div> 
+<div class="callnow_bt active"><a href='{% url "view_cart" %}'>View Cart</a></div> 
+
+{% endblock dashboard %}
+
+
+{% block dash %}
+<li>
+<a></a>   
+</li>
+{% endblock dash %}
+
+{% block banner_content %}
+
+<h1 class="banner_taital">DashBoard</h1>
+<p class="banner_text">Click Order Food To Order The food</p>
+                            
+{% endblock banner_content %}
+
+
+
+
+{% block maincontent %}
+
+{% endblock maincontent %}

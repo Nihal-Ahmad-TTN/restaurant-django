@@ -1,0 +1,68 @@
+{% extends "orderfood.html" %}
+
+
+
+{% block maincontent %}
+
+<div class='search'>
+    
+    <form action = "" method = "get" >
+        <input type = 'text' name = 'q' value = "" class='search-field' placeholder='Search food here'>
+        <button type = "submit" value='' class = 'order-button'>Search Food</button>
+    </form><br>
+
+
+    <form action = "" method = "get" >
+        Filter By Categories : 
+        {% for i in categories %}
+
+        {% if query == i %}
+        <button type = "submit" name = 'q' value='{{i}}' class = 'order-button' style='background-color : green !IMPORTANT'>{{i.title}}</button>
+        {% else %}
+        <button type = "submit" name = 'q' value='{{i}}' class = 'order-button'>{{i.title}}</button>
+        {% endif %}
+        {% comment %} <button type = "submit" name = 'q' value='{{i}}' class = 'order-button'>{{i.title}}</button> {% endcomment %}
+        {% endfor %}
+        <button type = "submit" name = 'q' value='all' class = 'order-button'>All Foods</button>
+    </form><br>
+
+
+
+    <form action = "" method = "get" >
+        Filter By Veg/Non Veg : 
+        {% for i in types %}
+
+        {% if query == i %}
+        <button type = "submit" name = 'q' value='{{i}}' class = 'order-button' style='background-color : green !IMPORTANT'>{{i.title}}</button>
+        {% else %}
+        <button type = "submit" name = 'q' value='{{i}}' class = 'order-button'>{{i.title}}</button>
+        {% endif %}
+        {% endfor %}
+        <button type = "submit" name = 'q' value='all' class = 'order-button'>All Foods</button>
+    </form><br>
+</div>
+    {% if menu %}
+        <div class = "search">
+        <h1>{{query.title}}</h1>
+        <hr>
+        </div>
+          <span class="container"><span class="dish-list">
+            {% for i in menu %}
+                <span class="dish-card"> 
+                    <form action = "{% url 'add_to_cart' i.id %}" method = "post">
+                        {% csrf_token %}
+                            <img src='{{i.food_image.url}}' alt="{{i.food_image}}">
+                            <h3>{{i.food_name}}</h3>
+                            <h3>{{i.food_type}}</h3>
+                            <b>Category : {{i.food_category}}</b>
+                            <h3>Rs. {{i.food_price}}</h3>
+                            <b>Quantity : </b><input type = 'number' name='quantity' value='1'  class='quantity'>
+                            <button type='submit' name = 'food_name' value = '{{i.food_name}}'>Add to cart</button>
+                    </form>
+                </span>
+            {% endfor %}
+  </span> </span>
+    {% else %}
+        <h1> Not Found </h1>
+    {% endif %}
+{% endblock maincontent %}

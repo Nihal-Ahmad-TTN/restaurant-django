@@ -1,0 +1,82 @@
+{% extends "/home/nihal/restaurent/myproject/customer/templates/orderfood.html" %}
+
+
+{% block banner_content %}
+<p></p>
+{% endblock banner_content %}
+
+{% block styles %}
+<style>
+    .pagination {
+    --color: #4CAF50;
+    font-family: inherit;
+    display: inline-block;
+    width: 8em;
+    height: 2.6em;
+    line-height: 2.5em;
+    background-color : white;
+    margin: 20px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    border: 2px solid var(--color);
+    transition: color 0.5s;
+    z-index: 1;
+    font-size: 17px;
+    border-radius: 6px;
+    font-weight: 500;
+    color: var(--color);
+    }
+</style>
+{% endblock styles %}
+
+
+{% block customer %}
+<li class="nav-item">
+    <a href='{% url "add_menu" %}' class="nav-link"> Add Menu </a>
+</li>
+<li class="nav-item">
+    <a href='{% url "update_menu" %}' class="nav-link"> Update Menu </a>
+</li>
+{% endblock customer %}
+
+{% block add_bt %}
+<li class="nav-item"></li>
+{% endblock add_bt %}
+
+{% block dashboard %}
+<p></p>
+{% endblock dashboard %}
+
+{% block maincontent %}
+<span class="container">
+
+    {% block updateform %}
+    <span class="dish-list">
+        {% for i in data%}
+        <span class="dish-card">
+            <img src='{{i.food_image.url}}' alt="{{i.food_image}}">
+            <h3>{{i.food_name}}</h3>
+            <p>{{i.food_category}}</p>
+            <h3>Rs. {{i.food_price}}</h3>
+            <h3>{{i.food_type}}</h3>
+            
+        </span>
+        {% endfor %}
+    </span>
+    {% endblock updateform %}
+
+
+    {% if data.has_previous %}
+        <a href="?page=1" style = 'text-decoration: none; color:#4CAF50'><button class = 'pagination'>First Page</button></a>
+        <a href="?page={{ data.previous_page_number }}" style = 'text-decoration: none; color:#4CAF50'><button class = 'pagination'>Previous Page</button></a>
+    
+    {% endif %}
+
+    {% if data.has_next %}
+        <a href="?page={{ data.next_page_number }}" style = 'text-decoration: none; color:#4CAF50'><button class = 'pagination'>Next Page</button></a>
+        <a href="?page={{ data.paginator.num_pages }}" style = 'text-decoration: none; color:#4CAF50'><button class = 'pagination'>Last Page</button></a>
+    {% endif %}
+</span>
+
+{% endblock maincontent %}

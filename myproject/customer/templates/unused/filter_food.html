@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'abc.css' %}">
+
+</head>
+<body>
+    <div class='search'>
+    
+    <form action = "" method = "get" >
+        {% comment %} {% csrf_token %} {% endcomment %}
+        <input type = 'text' name = 'q' value = "" class='search-field' placeholder='Search food here'>
+        {% comment %} <span class="dish-card"> {% endcomment %}
+            <button type = "submit" value='' class = 'order-button'>Search Food</button>
+        {% comment %} </span> {% endcomment %}
+
+    </form><br>
+
+
+    <form action = "" method = "get" >
+        Filter By Categories : 
+        {% comment %} <input type = 'text' name = 'q' value = "" > {% endcomment %}
+        {% for i in categories %}
+        <button type = "submit" name = 'q' value='{{i}}' class = 'order-button'>{{i.title}}</button>
+        {% endfor %}
+        <button type = "submit" name = 'q' value='all' class = 'order-button'>All Foods</button>
+    </form><br>
+
+
+
+    <form action = "" method = "get" >
+        Filter By Veg/Non Veg : 
+        {% comment %} <input type = 'text' name = 'q' value = "" > {% endcomment %}
+        {% for i in types %}
+        <button type = "submit" name = 'q' value='{{i}}' class = 'order-button'>{{i.title}}</button>
+        {% endfor %}
+        <button type = "submit" name = 'q' value='all' class = 'order-button'>All Foods</button>
+
+    </form><br>
+
+
+
+    <form action = '{% url "customer_logout" %}' method = 'post'>
+        {% csrf_token %}
+        <button type="submit" class='order-button logout'>LOGOUT</button>
+
+        {% comment %} <input type = "submit" value='submit'> {% endcomment %}
+    </form><br>
+</div>
+    {% comment %} <div>
+        <span class="dish-card">
+            <button type = "submit" class = 'order-button'>Order Food</button>
+        </span>
+    </div> {% endcomment %}
+    <div>
+        <span class="dish-card">
+            <button type = "submit" class = 'order-button' ><a href= '{% url "view_cart" %}' style='text-decoration : none; color: white;'>View Cart</a></button>
+        </span>
+    </div>
+    {% if menu %}
+    {% comment %} <form action = "" method = "get"> {% endcomment %}
+        {% comment %} {% csrf_token %} {% endcomment %}
+        <div class = "search">
+        <h1>{{query.title}}</h1>
+        <hr>
+        </div>
+          <span class="container"><span class="dish-list">
+            {% for i in menu %}
+
+            
+        <span class="dish-card"> 
+            <form action = "{% url 'add_to_cart' i.id %}" method = "post">
+                {% csrf_token %}
+                    <img src='{{i.food_image.url}}' alt="{{i.food_image}}">
+                    <h3>{{i.food_name}}</h3>
+                    <h3>{{i.food_type}}</h3>
+                    <b>Category : {{i.food_category}}</b>
+                    <h3>Rs. {{i.food_price}}</h3>
+                    <b>Quantity : </b><input type = 'number' name='quantity' value='1'  class='quantity'>
+                    <button type='submit' name = 'food_name' value = '{{i.food_name}}'>Add to cart</button>
+            </form>
+        </span>
+
+                {% endfor %}
+  </span> </span>
+        
+        
+    {% comment %} </form> {% endcomment %}
+    {% else %}
+    <h1> Not Found </h1>
+    {% endif %}
+</body>
+</html>

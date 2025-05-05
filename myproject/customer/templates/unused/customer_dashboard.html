@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Customer Dashboard </h1>
+    <a href='{% url "order_food" %}'> Order Food </a><br><br>
+
+    <form action = '{% url "customer_logout" %}' method = 'post'>
+        {% csrf_token %}
+        <button type="submit">LOGOUT</button>
+    </form>
+
+</body>
+</html>

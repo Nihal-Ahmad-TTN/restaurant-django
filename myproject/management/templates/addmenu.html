@@ -1,0 +1,121 @@
+{% extends "/home/nihal/restaurent/myproject/customer/templates/register.html" %}
+{% load static %}
+
+{% block formtitle %}ADD Menu{% endblock formtitle %}
+
+{% block styles %}
+<style>
+    .pagination {
+    display: none;
+    }
+
+    .add_bt{
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+        color: #fefefd;
+        background-color: #d07d6b;
+        padding: 10px;
+        text-transform: uppercase;
+        margin-top: 20px;
+        display: block;
+        cursor: pointer;
+        font-weight: bold;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .custom-file-upload {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #d07d6b;
+        color: white;
+        font-size: 16px;
+        border: none;
+        margin-top : 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .choices{
+        background-color : #efefef;
+        padding: 11px 20px;
+        width : 100%;
+        border : none;
+        border-radius : 40px;
+        margin-top: 20px;
+        font-size: 16px;
+        color: #2e2e2d;
+    }
+
+    .choices::placeholder{
+        font-size: 16px;
+        color: #2e2e2d;
+    }
+</style>
+{% endblock styles %}
+
+{% block form %}
+<form action="" method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    {% comment %} {{form}} {% endcomment %}
+    <div>
+        {{ form.food_name }}
+    </div>
+    
+    <div>
+        {{ form.food_desc }}
+    </div>
+    
+    <!-- Food Category Dropdown -->
+    <div>
+
+        <select name="food_category" id="id_food_category" class="choices" style='padding : 15px 20px 15px 20px'>
+            {% for value, label in form.food_category.field.choices %}
+                <option value="{{ value }}" {% if form.food_category.value == value %}selected{% endif %}>
+                    {% if label == '---------' %}Enter Food Category {% else %}{{ label|title }}{% endif %}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <!-- Food Type Dropdown -->
+    <div>
+
+        <select name="food_type" id="id_food_type" class='choices' style='padding : 15px 20px 15px 20px'>
+            {% for value, label in form.food_type.field.choices %}
+                <option value="{{ value }}" {% if form.food_type.value == value %}selected{% endif %}>
+                    {% if label == '---------' %}Enter Food Type {% else %}{{ label }}{% endif %}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <div>
+        {% comment %} <label for="id_food_price">Food Price</label> {% endcomment %}
+        <input type="number" name="food_price" value="" required id="id_food_price" class='choices' placeholder='Enter Food Price'>
+        {% comment %} {{ form.food_price }} {% endcomment %}
+    </div>
+    <div>
+        <label for="id_food_image" class='custom-file-upload'>Upload Food image</label>
+        <input type="file" name="food_image" id="id_food_image"  value='Upload File' class='pagination'>
+    </div>
+
+    <div class="send_bt"><input type = 'submit' value = 'Add Dish' class = 'add_bt'>
+    </div>
+</form>
+{% endblock form %}
+
+{% block addcss %}
+
+      <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="css/style.css">
+      <link rel="stylesheet" href="css/responsive.css">
+      <link rel="icon" href="images/fevicon.png" type="image/gif" />
+      {% comment %} <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet"> {% endcomment %}
+      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+      {% comment %} <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"> {% endcomment %}
+
+{% endblock addcss %}

@@ -1,0 +1,66 @@
+{% extends "login.html" %}
+{% load static %}
+
+{% block addcss %}
+<link rel="stylesheet" href="{% static 'abc.css' %}">
+{% endblock addcss %}
+
+
+{% block maincontent %}
+<div class='search' style=''>
+    
+    <form action = "" method = "get" style=''>
+        <input type = 'text' name = 'q' value = "" class='search-field' placeholder='Search food here'>
+        <button type = "submit" value='' class = 'order-button'>Search Food</button>
+    </form><br>
+
+
+    <form action = "" method = "get" >
+        Filter By Categories : 
+        {% for i in categories %}
+        <button type = "submit" name = 'q' value='{{i}}' class = 'order-button'>{{i.title}}</button>
+        {% endfor %}
+    </form><br>
+
+
+
+    <form action = "" method = "get" >
+        Filter By Veg/Non Veg : 
+        {% for i in types %}
+        <button type = "submit" name = 'q' value='{{i}}' class = 'order-button'>{{i.title}}</button>
+        {% endfor %}
+    </form><br>
+</div>
+    {% if menu %}
+        {% for i,j in menu.items %}
+            <div class='search'>
+                <h1> {{i.title}}</h1>
+                <hr>
+            </div>
+            <span class="container"><span class="dish-list">
+            {% for k in j %}
+                <span class="dish-card"> 
+                    <form action = "{% url 'add_to_cart' k.id %}" method = "post">
+                        {% csrf_token %}
+                            <img src='{{k.food_image.url}}' alt="{{i.food_image}}">
+                            <h3>{{k.food_name}}</h3>
+                            <h3>{{k.food_type}}</h3>
+                            <b>Category : {{k.food_category}}</b>
+                            <h3>Rs. {{k.food_price}}</h3>
+                            <b>Quantity : </b><input type = 'number' placeholder = 'quantity' name='quantity' value='1' class='quantity' max_value="{{k.food_quantity}}">
+                            <button type='submit' name = 'food_name' value = '{{k.food_name}}'>Add to cart</button>
+                    </form>
+                </span>
+            {% endfor %}
+            </span>
+        {% endfor %}
+        </span> 
+    {% else %}
+        <h1> Not Found </h1>
+    {% endif %}
+
+{% endblock maincontent %}
+
+{% block add_bt %}
+<li class="nav-item"><a class="nav-link" href='{% url "view_cart" %}'>View Cart</a></li>
+{% endblock add_bt %}

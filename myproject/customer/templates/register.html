@@ -1,0 +1,81 @@
+ 
+{% extends "base.html" %}
+{% load static %}
+
+{% block banner %}
+<p></p>
+{% endblock banner %} 
+
+
+{% block register %}
+<a></a>
+{% endblock register %} 
+
+{% block styles %}
+<style>
+.add_bt{
+   width: 100%;
+   text-align: center;
+   font-size: 16px;
+   color: #fefefd;
+   background-color: #d07d6b;
+   padding: 10px;
+   text-transform: uppercase;
+   margin-top: 20px;
+   display: block;
+   cursor: pointer;
+   font-weight: bold;
+   border-radius: 5px;
+   margin-bottom: 20px;
+   font-family: 'Poppins', sans-serif;
+}
+</style>
+{% endblock styles %}
+
+{% block addcss %}
+
+      <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="css/style.css">
+      <link rel="stylesheet" href="css/responsive.css">
+      <link rel="icon" href="images/fevicon.png" type="image/gif" />
+      {% comment %} <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet"> {% endcomment %}
+      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+      {% comment %} <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"> {% endcomment %}
+
+{% endblock addcss %}
+
+{% block maincontent %}
+ <!-- contact section start -->
+      <div class="contact_section layout_padding">
+        <div class="container">
+           <div class="row">
+              <div class="col-sm-12">
+                 <h1 class="contact_taital">{% block formtitle %}Register{% endblock formtitle %}</h1>
+              </div>
+           </div>
+        </div>
+        <div class="container-fluid">
+           <div class="contact_section_2">
+              <div class="row">
+                 <div class="col-md-12">
+                    <div class="mail_section_1">
+
+                        {% block form %}
+                        <form action='' method='post'>
+                           {% csrf_token %}
+                           {{form}}
+                           <div class="send_bt" style='padding: 10px'><input type = 'submit' value = 'Register' class='add_bt' style='margin:10px'>
+                           </div>
+                        </form>
+                        {% endblock form %}
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+
+     <!-- contact section end -->
+
+     
+{% endblock maincontent %}

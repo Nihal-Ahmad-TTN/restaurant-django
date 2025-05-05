@@ -1,0 +1,27 @@
+{% extends "/home/nihal/restaurent/myproject/customer/templates/customerdashboard.html" %}
+{% load static %}
+
+{% block customer %}
+
+<li class="nav-item">
+    <a href='{% url "show_menu" %}' class="nav-link"> View Menu </a>
+</li>
+<li class="nav-item">
+    <a href='{% url "add_menu" %}' class="nav-link"> Add Menu </a>
+</li>
+<li class="nav-item">
+    <a href='{% url "update_menu" %}' class="nav-link"> Update Menu </a>
+</li>
+<li class="nav-item">
+    <a href='{% url "customer_orders" %}' class="nav-link"> Accept/Reject Orders </a>
+</li>
+{% endblock customer %}
+
+{% block banner_content %}
+<h1 class="banner_taital">DashBoard</h1>
+<p class="banner_text">Click the button below to accept or reject Orders</p>
+{% endblock banner_content %}
+
+{% block dashboard %}
+<div class="about_bt"><a href='{% url "customer_orders" %}'>View Orders</a></div> 
+{% endblock dashboard %}

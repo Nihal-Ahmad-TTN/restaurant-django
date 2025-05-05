@@ -1,0 +1,28 @@
+{% extends "viewmenu.html" %}
+{% load static %}
+
+{% block customer %}
+<li class="nav-item">
+    <a href='{% url "add_menu" %}' class="nav-link"> Add Menu </a>
+</li>
+{% endblock customer %}
+
+{% block updateform %}
+<span class="dish-list">
+    {% for i in data%}
+    <span class="dish-card">
+            <img src='{{i.food_image.url}}' alt="{{i.food_image}}">
+            <h3>{{i.food_name}}</h3>
+            <p>{{i.food_category}}</p>
+            <h3>Rs. {{i.food_price}}</h3>
+            <h3>{{i.food_type}}</h3>
+            <form action='{% url "update_item" i.id %}' method='post'>
+                {% csrf_token %}
+                <input type = 'number' placeholder = 'price' name='price' style="border: 1px solid black; margin-bottom: 20px; padding: 5px 10px;"><br>
+                <button type='submit' name='update_dish' value='update'>Update Dish</button>
+                <button type='submit' name='update_dish' value='delete'>Delete Dish</button>
+            </form> 
+    </span>
+    {% endfor %}
+</span>
+{% endblock updateform %}

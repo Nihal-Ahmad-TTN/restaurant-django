@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'cart.css'%}">
+    <title>cart</title>
+</head>
+<body>
+  <div class="dish-block">
+    <h1>Orders</h1>  
+
+      {% if  items %}
+        {% for i in items %}
+          {% if i.quantity > 0 %}
+          <span class="dish-cart">
+              <div>
+                <a href=''> 
+                <img src='{{i.name.food_image.url}}' alt="Pasta">
+                </a>
+              </div>
+              <div>
+                <h3>{{i.name.food_name}}</h3>
+                <h4>Rs. {{i.total_price}}</h4>
+                <p><b>{{i.name.food_category}} </b></p>
+                <p><b>{{i.name.food_type}} </b></p>
+                <p>Quantity: {{i.quantity}}</p>
+                <p>Ordered By: {{i.user.name}}</p>
+              </div>
+              <div>
+
+                {% if i.status == "PENDING" %}   
+                  <form method='post' action='{% url "update_order" i.name.id %}'>
+                    <button class="update" value='accept' type = 'submit' name='accept'>ACCEPT</button>
+                    <button type='submit' value='reject' class='update' style='background-color: red;'>REJECT</button>
+                    {% csrf_token %}
+                  </form>
+                {% else %}
+                  <h1>{{i.status}}</h1>
+                {% endif %} 
+
+              </div> 
+          </span>
+          {% else %}
+            <h3>NO ORDERS</h3>
+          {% endif %}
+
+        {% endfor %}
+      {% else %}
+        <h3>NO ORDERS</h3>
+      {% endif %}
+</body>
+</html>

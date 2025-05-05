@@ -1,0 +1,65 @@
+{% extends "orderfood.html" %}
+{% load static %}
+
+
+{% block addcss %}
+<link rel="stylesheet" href="{% static 'cart.css' %}">
+{% endblock addcss %}
+
+{% block maincontent %}
+   <div class="dish-block">
+    <h1>Cart</h1>  
+    {% if  items %}
+      {% for i in items %}
+        {% if i.quantity > 0 %}
+        <span class="dish-cart">
+            <div>
+              <a href=''> 
+              <img src='{{i.name.food_image.url}}' alt="Pasta">
+              </a>
+            </div>
+            <div>
+              <h3>{{i.name.food_name}}</h3>
+              <h4>Rs. {{i.total_price}}</h4>
+              <p><b>{{i.name.food_category}} </b></p>
+              <p><b>{{i.name.food_type}} </b></p>
+              <p>Quantity: {{i.quantity}}</p>
+              </div>
+            <div>
+              {% if i.status != "PENDING" and i.status != "ACCEPTED" and i.status != "REJECTED"%}   
+                <form method='post' action='{% url "update_cart" i.name.id %}'>
+                  <input type="number" value={{i.quantity}} min=0 name="quantity" />
+                  <button class="update">Update</button>
+                  {% csrf_token %}
+                </form>
+                <form action='{% url "remove_item" i.name.id %}' method="post">
+                  {% csrf_token %}
+                  <button type='submit' value='' class='update' style='background-color: red;'>Remove</button>
+                </form> 
+              {% else %}
+                <h1>{{i.status}}</h1>
+              {% endif %} 
+
+            </div> 
+        </span>
+          {% else %}
+          <h3>YOUR CART IS EMPTY</h3>
+          {% endif %}
+      {% endfor %}
+
+      {% if total > 0 %}
+      <div style="display:flex;justify-content: flex-end;  align-items: center;  padding: 20px;">
+        <div>
+          <h2>Total Price : {{total}}</h2>
+        </div>
+        <div>
+          <form method="post" action='{% url "thank_you" %}'>
+            {% csrf_token %}
+            <button class="pay" type='submit' >Pay</button>
+          </form>
+        </div>
+      {% endif %}
+    {% else %}
+      <h3>YOUR CART IS EMPTY</h3>
+    {% endif %}
+{% endblock maincontent %}
